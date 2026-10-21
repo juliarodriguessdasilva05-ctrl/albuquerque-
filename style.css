@@ -1,0 +1,282 @@
+/* =========================================
+   VARIÁVEIS E RESET
+   ========================================= */
+:root {
+    --primary: #D4A373;
+    --primary-dark: #B08968;
+    --secondary: #2C3E50;
+    --bg-light: #FAFAFA;
+    --bg-alt: #F0F0F0;
+    --text-light: #333333;
+    --text-muted: #666666;
+    --white: #FFFFFF;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --radius: 8px;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-light: #1A1A1A;
+    --bg-alt: #242424;
+    --text-light: #E0E0E0;
+    --text-muted: #B0B0B0;
+    --white: #2C2C2C;
+    --shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Micro-tipografia: Largura máxima para leitura confortável */
+p, li { max-width: 65ch; }
+
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+
+/* =========================================
+   COMPONENTES
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.btn-primary { background-color: var(--primary); color: var(--white); }
+.btn-primary:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+.btn-outline { border-color: var(--white); color: var(--white); }
+.btn-outline:hover { background-color: var(--white); color: var(--secondary); }
+.btn-block { width: 100%; }
+.btn-small { padding: 8px 16px; font-size: 0.9rem; }
+
+.section { padding: 80px 0; }
+.bg-alt { background-color: var(--bg-alt); }
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+[data-theme="dark"] .section-title { color: var(--primary); }
+.section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 3rem; max-width: 65ch; margin-left: auto; margin-right: auto; }
+
+/* =========================================
+   HEADER & NAVEGAÇÃO
+   ========================================= */
+#main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 15px 0;
+    transition: all 0.3s ease;
+}
+#main-header.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    padding: 10px 0;
+}
+[data-theme="dark"] #main-header.scrolled { background: rgba(26, 26, 26, 0.85); }
+
+.header-content { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--secondary); }
+[data-theme="dark"] .logo { color: var(--white); }
+.logo span { color: var(--primary); }
+
+.desktop-nav a { margin: 0 15px; font-weight: 600; color: var(--secondary); }
+[data-theme="dark"] .desktop-nav a { color: var(--white); }
+.desktop-nav a:hover { color: var(--primary); }
+
+.header-actions { display: flex; align-items: center; gap: 15px; }
+#theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--secondary); }
+[data-theme="dark"] #theme-toggle { color: var(--white); }
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary); }
+[data-theme="dark"] .mobile-menu-btn { color: var(--white); }
+
+.mobile-menu {
+    position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+    background: var(--white); box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; padding: 80px 30px;
+    transition: right 0.3s ease; z-index: 999;
+}
+[data-theme="dark"] .mobile-menu { background: var(--bg-alt); }
+.mobile-menu.active { right: 0; }
+.mobile-menu a { font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+    height: 90vh;
+    background: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 60px;
+}
+.hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.5));
+}
+.hero-content { position: relative; z-index: 2; color: var(--white); max-width: 700px; }
+.hero h1 { font-family: var(--font-heading); font-size: 3rem; line-height: 1.2; margin-bottom: 1.5rem; }
+.hero p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+.hero-cta { display: flex; gap: 15px; flex-wrap: wrap; }
+
+.fade-in-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   SEÇÕES ESPECÍFICAS
+   ========================================= */
+.authority-bar { background: var(--secondary); color: var(--white); padding: 20px 0; }
+.authority-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; text-align: center; font-weight: 600; font-size: 0.95rem; }
+
+.split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.split-text h2 { font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--secondary); }
+[data-theme="dark"] .split-text h2 { color: var(--primary); }
+
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+.service-card {
+    background: var(--white); padding: 30px; border-radius: var(--radius);
+    box-shadow: var(--shadow); transition: transform 0.3s;
+}
+.service-card:hover { transform: translateY(-5px); }
+.service-card h3 { font-family: var(--font-heading); margin-bottom: 10px; color: var(--secondary); }
+[data-theme="dark"] .service-card h3 { color: var(--primary); }
+.service-card .price { color: var(--primary); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; }
+
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+.gallery-grid img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.3s; }
+.gallery-grid img:hover { transform: scale(1.02); }
+
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.testimonial-card { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); font-style: italic; }
+.testimonial-card span { display: block; margin-top: 15px; font-weight: 700; font-style: normal; color: var(--primary); }
+
+.faq-container { max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--text-muted); margin-bottom: 10px; }
+.faq-question {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 20px 0; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+    display: flex; justify-content: space-between; color: var(--text-light);
+}
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.faq-answer p { padding-bottom: 20px; color: var(--text-muted); }
+.faq-item.active .faq-answer { max-height: 200px; }
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+.faq-icon { transition: transform 0.3s; font-size: 1.5rem; color: var(--primary); }
+
+.info-list { list-style: none; margin: 20px 0; }
+.info-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.info-list a { color: var(--primary); font-weight: 600; }
+.social-links { display: flex; gap: 15px; margin-top: 20px; }
+.social-links a { color: var(--secondary); font-weight: 700; }
+[data-theme="dark"] .social-links a { color: var(--white); }
+
+.contact-form { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+[data-theme="dark"] .contact-form { background: var(--bg-alt); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: var(--radius);
+    font-family: var(--font-body); background: var(--bg-light); color: var(--text-light);
+}
+.form-note { font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; text-align: center; }
+
+footer { background: var(--secondary); color: var(--white); padding: 40px 0; text-align: center; }
+.footer-content { display: flex; flex-direction: column; gap: 20px; }
+.footer-links a { margin: 0 10px; opacity: 0.8; }
+.footer-links a:hover { opacity: 1; color: var(--primary); }
+
+/* =========================================
+   BOTÃO FLUTUANTE DO WHATSAPP (NOVO)
+   ========================================= */
+.floating-whatsapp {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 9998;
+    transition: transform 0.3s ease;
+    animation: pulse-whatsapp 2s infinite;
+}
+.floating-whatsapp:hover { transform: scale(1.1); }
+.floating-whatsapp svg { width: 36px; height: 36px; fill: white; }
+
+@keyframes pulse-whatsapp {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Barra Fixa Mobile */
+.mobile-sticky-bar {
+    display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+    background: var(--white); box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 9999; padding: 10px; justify-content: space-around;
+}
+.sticky-btn { flex: 1; text-align: center; padding: 12px; border-radius: var(--radius); font-weight: 700; margin: 0 5px; }
+.sticky-btn.call { background: var(--secondary); color: var(--white); }
+.sticky-btn.whatsapp { background: #25D366; color: var(--white); }
+
+/* Modal e Cookies */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; justify-content: center; align-items: center; }
+.modal-content { background: var(--white); padding: 30px; border-radius: var(--radius); max-width: 400px; text-align: center; position: relative; }
+[data-theme="dark"] .modal-content { background: var(--bg-alt); color: var(--text-light); }
+.close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; }
+
+.cookie-banner {
+    position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 400px;
+    background: var(--secondary); color: var(--white); padding: 20px;
+    border-radius: var(--radius); box-shadow: var(--shadow); z-index: 9997;
+    display: none; flex-direction: column; gap: 15px;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+@media (max-width: 768px) {
+    .desktop-nav, .header-actions .btn { display: none; }
+    .mobile-menu-btn { display: block; }
+    .hero h1 { font-size: 2.2rem; }
+    .split-layout { grid-template-columns: 1fr; }
+    
+    /* Ajuste do botão flutuante no mobile para não sobrepor a barra fixa */
+    .floating-whatsapp {
+        bottom: 85px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+    .floating-whatsapp svg { width: 28px; height: 28px; }
+    
+    .mobile-sticky-bar { display: flex; }
+    .cookie-banner { max-width: calc(100% - 40px); bottom: 80px; }
+    body { padding-bottom: 60px; }
+}
